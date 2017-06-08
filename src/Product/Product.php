@@ -49,7 +49,7 @@ class Product extends AbstractAPI
     {
         $product = $this->parseJSON('post', 'kdt.item.get', [self::API_FIND, $params]);
 
-        return new Collection($product['response']['item']);
+        return $product['response'];
     }
 
     /**
@@ -62,7 +62,7 @@ class Product extends AbstractAPI
     {
         $product = $this->parseJSON('post', 'kdt.items.custom.get', [self::API_GET, $params]);
 
-        return new Collection($product['response']['items']);
+        return $product['response'];
     }
 
     /**
@@ -75,7 +75,7 @@ class Product extends AbstractAPI
     {
         $product = $this->parseJSON('post', 'kdt.skus.custom.get', [self::API_GET_SKU, $params]);
 
-        return new Collection($product['response']['skus']);
+        return $product['response'];
     }
 
     /**
@@ -89,7 +89,7 @@ class Product extends AbstractAPI
     {
         $product = $this->parseJSON('upload', 'kdt.item.add', [self::API_ADD, $params, $files]);
 
-        return new Collection($product['response']['item']);
+        return $product['response'];
     }
 
     /**
@@ -103,7 +103,7 @@ class Product extends AbstractAPI
     {
         $product = $this->parseJSON('upload', 'kdt.item.update', [self::API_UPDATE, $params, $files]);
 
-        return new Collection($product['response']['item']);
+        return $product['response'];
     }
 
     /**
@@ -116,7 +116,7 @@ class Product extends AbstractAPI
     {
         $product = $this->parseJSON('post', 'kdt.item.sku.update', [self::API_UPDATE_SKU, $params]);
 
-        return new Collection($product['response']['sku']);
+        return $product['response'];
     }
 
     /**
@@ -142,7 +142,7 @@ class Product extends AbstractAPI
     {
         $product = $this->parseJSON('post', 'kdt.item.update.listing', [self::API_LISTING, $params]);
 
-        return new Collection($product['response']['item']);
+        return $product['response'];
     }
 
     /**
@@ -155,7 +155,7 @@ class Product extends AbstractAPI
     {
         $product = $this->parseJSON('post', 'kdt.item.update.delisting', [self::API_DELISTING, $params]);
 
-        return new Collection($product['response']['item']);
+        return $product['response'];
     }
 
     /**
@@ -168,7 +168,7 @@ class Product extends AbstractAPI
     {
         $product = $this->parseJSON('post', 'kdt.items.inventory.get', [self::API_INVENTORY, $params]);
 
-        return new Collection($product['response']['items']);
+        return $product['response'];
     }
 
     /**
@@ -181,7 +181,7 @@ class Product extends AbstractAPI
     {
         $product = $this->parseJSON('post', 'kdt.items.onsale.get', [self::API_ON_SALE, $params]);
 
-        return new Collection($product['response']['items']);
+        return $product['response'];
     }
 
     /**
@@ -193,7 +193,8 @@ class Product extends AbstractAPI
     public function batchListing($num_iids)
     {
         $params = is_array($num_iids) ? $num_iids : ['num_iids' => $num_iids];
-        $product = $this->parseJSON('post', 'kdt.items.update.listing', [self::API_BATCH_LISTING, $params]);
+
+        $product = $this->parseJSON('post', 'youzan.items.update.listing', [self::API_BATCH_LISTING, $params]);
 
         return $product['response']['is_success'];
     }
