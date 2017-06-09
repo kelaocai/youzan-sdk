@@ -37,6 +37,7 @@ class AccessToken
     private $cacheKey = 'hanson.youzan.platform.';
 
     const TOKEN_API = 'https://open.youzan.com/oauth/token';
+    const OAUTH_ENTRY_API = 'https://open.youzan.com/api/oauthentry/';
 
     public function __construct($clientId, $clientSecret)
     {
@@ -87,6 +88,24 @@ class AccessToken
 
         return json_decode($this->getHttp()->post(static::TOKEN_API, $params), true);
     }
+
+    /**
+     * @param $method
+     * @param $args
+     * @param string $version
+     * @return array
+     */
+    public function signatureParam($method, $args, $version = '3.0.0')
+    {
+        $path = strrchr($args[0], '/');
+
+        $args[0] = static::OAUTH_ENTRY_API.$method.'/'.'3.0.0'.$path;
+
+        $args[1]['access_token'] = $this->getToken();
+
+        return $args;
+    }
+
 
     /**
      * get a http instance.

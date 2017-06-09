@@ -10,7 +10,6 @@ namespace Hanson\Youzan\Core;
 
 
 use Hanson\Youzan\Core\Exceptions\HttpException;
-use Illuminate\Support\Collection;
 
 class AbstractAPI
 {
@@ -40,7 +39,7 @@ class AbstractAPI
      *
      * @param AccessToken $accessToken
      */
-    public function __construct(AccessToken $accessToken)
+    public function __construct($accessToken)
     {
         $this->setAccessToken($accessToken);
     }
@@ -52,10 +51,20 @@ class AbstractAPI
      *
      * @return $this
      */
-    public function setAccessToken(AccessToken $accessToken)
+    public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
         return $this;
+    }
+
+    /**
+     * get token.
+     *
+     * @return AccessToken
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
     }
 
     /**
@@ -70,7 +79,7 @@ class AbstractAPI
     {
         $http = $this->getHttp();
 
-        $args[1] = $this->accessToken->signatureParam($api, $args[1], $this->version);
+        $args = $this->accessToken->signatureParam($api, $args, $this->version);
 
         $result = json_decode(call_user_func_array([$http, $method], $args), true);
 

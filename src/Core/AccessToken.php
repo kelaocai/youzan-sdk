@@ -45,6 +45,8 @@ class AccessToken
 
     public function signatureParam($method, $args, $version = '1.0')
     {
+        $url = $args[0];
+
         $params = [
             'app_id' => $this->appId,
             'method' => $method,
@@ -52,11 +54,11 @@ class AccessToken
             'v' => $version,
         ];
 
-        $args = array_merge($args, $params);
+        $args = array_merge($args[1], $params);
 
         $args['sign'] = $this->signature($args);
 
-        return $args;
+        return [$url, $args];
     }
 
 }

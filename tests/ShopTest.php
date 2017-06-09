@@ -13,10 +13,19 @@ class ShopTest extends YouzanBaseTest
 {
 
 
-    public function testGet()
+    public function testCreateShop()
     {
-        $result = $this->app->shop->get();
+        $result = $this->app->platform->createAuthorizerApplication()->shop->create(['name' => 'test1']);
+        print_r($result);
+//        $this->assertEquals($result['id'], '2901');
+    }
+
+    public function testGetShop()
+    {
+        $result = $this->app->platform->createAuthorizerApplication()->shop->get();
+        print_r($result);
         $this->assertEquals($result['id'], '2901');
+        exit;
     }
 
     public function testGetAddressList()

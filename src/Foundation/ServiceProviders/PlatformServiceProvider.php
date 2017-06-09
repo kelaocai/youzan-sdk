@@ -9,6 +9,7 @@
 namespace Hanson\Youzan\Foundation\ServiceProviders;
 
 
+use Hanson\Youzan\Foundation\Application;
 use Hanson\Youzan\Platform\AccessToken;
 use Hanson\Youzan\Platform\Platform;
 use Pimple\Container;
@@ -28,7 +29,10 @@ class PlatformServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         $pimple['platform'] = function ($pimple) {
-            return new Platform($pimple['platform.access_token']);
+            return new Platform($pimple);
+        };
+        $pimple['platform.app'] = function ($pimple) {
+            return new Application($pimple['config']);
         };
         $pimple['platform.access_token'] = function ($pimple) {
             return new AccessToken($pimple['config']['app_id'], $pimple['config']['secret']);

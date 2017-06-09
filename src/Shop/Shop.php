@@ -7,12 +7,24 @@ use Illuminate\Support\Collection;
 
 class Shop extends AbstractAPI
 {
-    const API_GET = "https://open.youzan.com/api/entry/youzan.shop/3.0.0/get";
-    const API_ADDRESS_CREATE = "https://open.youzan.com/api/entry/youzan.shop.address/3.0.0/create";
-    const API_ADDRESS_GET = "https://open.youzan.com/api/entry/youzan.shop.address/3.0.0/get";
-    const API_ADDRESS_UPDATE = "https://open.youzan.com/api/entry/youzan.shop.address/3.0.0/update";
-    const API_ADDRESS_LIST = "https://open.youzan.com/api/entry/youzan.shop.address/3.0.0/list";
-    const API_ADDRESS_DELETE = "https://open.youzan.com/api/entry/youzan.shop.address/3.0.0/delete";
+    const API_GET = 'https://open.youzan.com/api/entry/youzan.shop/3.0.0/create';
+    const API_CREATE = 'https://open.youzan.com/api/entry/youzan.shop/3.0.0/get';
+    const API_ADDRESS_CREATE = 'https://open.youzan.com/api/entry/youzan.shop.address/3.0.0/create';
+    const API_ADDRESS_GET = 'https://open.youzan.com/api/entry/youzan.shop.address/3.0.0/get';
+    const API_ADDRESS_UPDATE = 'https://open.youzan.com/api/entry/youzan.shop.address/3.0.0/update';
+    const API_ADDRESS_LIST = 'https://open.youzan.com/api/entry/youzan.shop.address/3.0.0/list';
+    const API_ADDRESS_DELETE = 'https://open.youzan.com/api/entry/youzan.shop.address/3.0.0/delete';
+
+    /**
+     * 创建店铺，仅支持平台型应用。
+     *
+     * @param $params
+     * @return mixed
+     */
+    public function create($params)
+    {
+        return $this->parseJSON('post', 'youzan.shop.create', [self::API_CREATE, $params]);
+    }
 
     /**
      * get shop base info
