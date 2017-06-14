@@ -36,15 +36,15 @@ class Http
     /**
      * POST request.
      *
-     * @param string       $url
-     * @param array|string $options
-     *
+     * @param string $url
+     * @param array $query
      * @return string
+     * @internal param array|string $options
+     *
      */
-    public function post($url, $options = [])
+    public function post($url, $query = [])
     {
-        $key = is_array($options) ? 'form_params' : 'body';
-        return $this->request($url, 'POST', [$key => $options]);
+        return $this->request($url, 'POST', ['form_params' => $query]);
     }
 
     /**
@@ -91,7 +91,10 @@ class Http
      */
     public function request($url, $method = 'GET', $options = [])
     {
+        print_r($url);
+        print_r($options);
         $response = $this->getClient()->request($method, $url, $options);
+
         return $response->getBody()->getContents();
     }
 

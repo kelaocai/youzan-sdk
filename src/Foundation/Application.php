@@ -39,6 +39,7 @@ class Application extends Container
         ServiceProviders\TagServiceProvider::class,
         ServiceProviders\ShopServiceProvider::class,
         ServiceProviders\ServerServiceProvider::class,
+        ServiceProviders\PlatformServiceProvider::class,
     ];
 
     public function __construct($config)
